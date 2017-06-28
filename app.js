@@ -2,12 +2,19 @@
 const app = {
     init: function(formSelector) {
         this.max = 0
+        this.list = document.querySelector(selectors.listSelector)
         document
-            .querySelector(formSelector)
+            .querySelector(selectors.formSelector)
             .addEventListener('submit', this.handleSubmit.bind(this)) 
             // Bind returns a new copy of function set correctly
             // 'This' will be whatever 'this' is now
     }, // Don't forget comma
+
+    renderListItem: function() {
+        const item = document.createElement('li')
+        item.textContent = flick.name
+        return item
+    },
 
     // This is a function but still is a property
     handleSubmit: function(ev) { // ev stands for event
@@ -17,8 +24,13 @@ const app = {
             id: this.max + 1,
             name: f.flickName.value,
         }
+        const listItem = this.renderListItem(flick)
+        this.list.appendChild(listItem)
         this.max++
     },
 }
 
-app.init('form#flick-form') // Run as soon as page loads
+app.init({
+    formSelector:'form#flick-form',
+    listSelector: '#flick-list',
+}) // Run as soon as page loads
