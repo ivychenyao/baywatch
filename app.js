@@ -1,6 +1,6 @@
 // Object with function inside that is called as soon as page loads
 const app = {
-    init: function(formSelector) {
+    init(selectors) {
         this.max = 0
         this.list = document.querySelector(selectors.listSelector)
         document
@@ -10,7 +10,7 @@ const app = {
             // 'This' will be whatever 'this' is now
     }, // Don't forget comma
 
-    renderListItem: function() {
+    renderListItem(flick) {
         const item = document.createElement('li')
         item.textContent = flick.name
         return item
@@ -26,6 +26,7 @@ const app = {
         }
         const listItem = this.renderListItem(flick)
         this.list.appendChild(listItem)
+
         this.max++
     },
 }
