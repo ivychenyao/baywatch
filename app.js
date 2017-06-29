@@ -66,16 +66,13 @@ const app = {
 }
 
 function favorite(itemName) {
-    console.log("HI")
-    document.getElementById("fav").style.backgroundColor = "red";
-    console.log("It works")
-   // itemName
+    itemName.style.backgroundColor = "palevioletred"
 }
 
 // Run as soon as page loads
 app.init({
     formSelector:'form#flick-form',
     listSelector: '#flick-list',
-    favSelector: '#fav',
+    //favSelector: '#fav',
     
 }) 
