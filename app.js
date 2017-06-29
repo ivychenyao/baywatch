@@ -12,9 +12,14 @@ const app = {
             // 'This' will be whatever 'this' is now
     }, // Don't forget comma
 
-    removeFlick(ev) {
-       const listItem = ev.target.closest('.flick')
-       listItem.remove();
+    removeFlick(flick, ev) {
+        // Remove from DOM
+        const listItem = ev.target.closest('.flick')
+        listItem.remove()
+       
+        // Remove from array
+        const i = this.flicks.indexOf(flick)
+        this.flicks.splice(i, 1)
     },
 
     // Take flick and make item list out of it
@@ -27,7 +32,7 @@ const app = {
             .textContent = flick.name
         item
             .querySelector('button.remove')
-            .addEventListener('click',this.removeFlick)
+            .addEventListener('click',this.removeFlick.bind(this, flick))
 /*
         // Favorite button
         let favButton = document.createElement("fav")
