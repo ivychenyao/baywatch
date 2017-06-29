@@ -13,17 +13,21 @@ const app = {
         
     }, // Don't forget comma
 
+    // Take flick and make item list out of it
     renderListItem(flick) {
         const item = document.createElement('li')
         item.textContent = flick.name
+        item.dataset.id = flick.id
 
         // Favorite button
         let favButton = document.createElement("fav")
+        //fav.textContent = flick.name
         let text = document.createTextNode("Favorite")
         favButton.appendChild(text)
         document.body.appendChild(favButton)
-        favButton.onclick = function() {favorite(item)}
-
+        favButton.onclick = function() {
+            favorite(item)
+        }
         return item
     },
 
@@ -37,25 +41,35 @@ const app = {
         }
         const listItem = this.renderListItem(flick)
 
+        // Appends each entered flick to array
+        this.flicks.push(flick)
+        console.log(this.flicks) // Print out array
+
+        // Add flick label to page (?)
+        let i = 0;
+        for(i; i < this.flicks.length; i++) {
+            this.list.appendChild(listItem)
+        }
+
         // Remove button
         let removeButton = document.createElement("rem")
         let text2 = document.createTextNode("Remove")
         removeButton.appendChild(text2)
-        document.body.appendChild(removeButton)        
-
-        // Appends each entered flick to array
-        this.flicks.push(flick)
+        document.body.appendChild(removeButton)
+    
+    //    this.flicks.splice(0, 1);
         console.log(this.flicks)
-
-        for(let i = 0; i < this.flicks.length; i++) {
-            this.list.appendChild(listItem)
-        }
-
+        removeButton.onclick = function() {
+            this.list.renderListItem(listItem)
+           // this.flicks.splice(0, 1);
+        }    
         // REMOVING
         // this.flicks.splice(0, 1);
 
         this.max++
+        f.reset(); // Clears entry field after submitted
     },
+
 }
 
 // Favorite or un-favorite a flick
@@ -66,6 +80,10 @@ function favorite(itemName) {
     else {
         itemName.style.backgroundColor = "palevioletred"
     }
+}
+
+function remove(itemName) {
+    this.flicks.splice()
 }
 
 // Run as soon as page loads
