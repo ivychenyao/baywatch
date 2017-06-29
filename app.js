@@ -12,6 +12,11 @@ const app = {
             // 'This' will be whatever 'this' is now
     }, // Don't forget comma
 
+    removeFlick(ev) {
+       const listItem = ev.target.closest('.flick')
+       listItem.remove();
+    },
+
     // Take flick and make item list out of it
     renderListItem(flick) {
         const item = this.template.cloneNode(true)
@@ -20,6 +25,9 @@ const app = {
         item
             .querySelector('.flick-name')
             .textContent = flick.name
+        item
+            .querySelector('button.remove')
+            .addEventListener('click',this.removeFlick)
 /*
         // Favorite button
         let favButton = document.createElement("fav")
