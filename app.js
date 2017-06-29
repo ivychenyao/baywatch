@@ -4,7 +4,7 @@ const app = {
         this.flicks = [] // New flick name and ID added to array
         this.max = 0
         this.list = document.querySelector(selectors.listSelector)
-        this.favButton = document.querySelector(selectors.favSelector)
+        this.template = document.querySelector(selectors.templateSelector)
         document
             .querySelector(selectors.formSelector)
             .addEventListener('submit', this.handleSubmit.bind(this)) 
@@ -14,9 +14,12 @@ const app = {
 
     // Take flick and make item list out of it
     renderListItem(flick) {
-        const item = document.createElement('li')
-        item.textContent = flick.name
+        const item = this.template.cloneNode(true)
+        item.classList.remove('template')
         item.dataset.id = flick.id
+        item
+            .querySelector('.flick-name')
+            .textContent = flick.name
 /*
         // Favorite button
         let favButton = document.createElement("fav")
@@ -55,11 +58,10 @@ const app = {
         document.body.appendChild(removeButton)
     */
     //    this.flicks.splice(0, 1);
-        console.log(this.flicks)
-        removeButton.onclick = function() {
-            this.list.renderListItem(listItem)
-           // this.flicks.splice(0, 1);
-        }    
+        // removeButton.onclick = function() {
+        //     this.list.renderListItem(listItem)
+        //    // this.flicks.splice(0, 1);
+        // }    
         // REMOVING
         // this.flicks.splice(0, 1);
 
@@ -87,4 +89,5 @@ function remove(itemName) {
 app.init({
     formSelector:'form#flick-form',
     listSelector: '#flick-list',
+    templateSelector: '.flick.template', // CSS selector for something with multiple classes
 }) 

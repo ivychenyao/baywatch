@@ -28,15 +28,19 @@ h1 small {
 
 .list-container {
   /*background-color: whitesmoke;*/
-  opacity: .5;
+  opacity: 0.5;
 }
 
 #flick-list {
     margin-bottom: 0;
 }
 
+.template {
+    display: none;
+}
+
 .flick-name {
-    margin: 0 .75rem 0 .75rem;
+    margin: 0 0.75rem;
 }
 
 .flick .button-group {

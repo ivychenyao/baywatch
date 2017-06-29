@@ -15,7 +15,8 @@
                 <h1>{ <small>Michael</small> } Baywatch</h1>
                 <form id="flick-form">
                     <div class="input-group">
-                        <input type="text" 
+                        <input 
+                        type="text" 
                         class="input-group-field"
                         name="flickName"
                         placeholder="Name a flick"
@@ -23,7 +24,11 @@
                         required
                         >
                         <div class="input-group-button">
-                            <button class="success button" style="background-color:grey" type="submit">
+                            <button 
+                            class="success button" 
+                            style="background-color:grey" 
+                            type="submit"
+                            >
                                 Add flick
                             </button>
                         </div>
@@ -33,8 +38,8 @@
 
             <div class="medium-8 medium-offset-2 cell list-container">
                 <ul id="flick-list" class="no-bullet">
-                    <li class="flick grid-x align-middle">
-                        <span class="flick-name auto cell">The Rock</span>
+                    <li class="template flick grid-x align-middle">
+                        <span class="flick-name auto cell"></span>
                         <span class="actions button-group shrink cell">
                             <button class="fav button warning">fav</button>
                             <button class="remove button alert">del</button>
@@ -42,7 +47,6 @@
                     </li>
                 </ul>
             </div>
-
         </div>
         <script src="app.js"></script>
     </body>
