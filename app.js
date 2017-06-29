@@ -17,7 +17,7 @@ const app = {
         const item = document.createElement('li')
         item.textContent = flick.name
         item.dataset.id = flick.id
-
+/*
         // Favorite button
         let favButton = document.createElement("fav")
         //fav.textContent = flick.name
@@ -26,7 +26,7 @@ const app = {
         document.body.appendChild(favButton)
         favButton.onclick = function() {
             favorite(item)
-        }  
+        }  */
         return item
     },
 
@@ -47,13 +47,13 @@ const app = {
         const listItem = this.renderListItem(flick)
         // Add flick label to top of list on page
         this.list.insertBefore(listItem, this.list.firstElementChild) // Add flick to top of page list
-
+/*
         // Remove button
         let removeButton = document.createElement("rem")
         let text2 = document.createTextNode("Remove")
         removeButton.appendChild(text2)
         document.body.appendChild(removeButton)
-    
+    */
     //    this.flicks.splice(0, 1);
         console.log(this.flicks)
         removeButton.onclick = function() {
