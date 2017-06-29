@@ -10,7 +10,6 @@ const app = {
             .addEventListener('submit', this.handleSubmit.bind(this)) 
             // Bind returns a new copy of function set correctly
             // 'This' will be whatever 'this' is now
-        
     }, // Don't forget comma
 
     // Take flick and make item list out of it
@@ -27,7 +26,7 @@ const app = {
         document.body.appendChild(favButton)
         favButton.onclick = function() {
             favorite(item)
-        }
+        }  
         return item
     },
 
@@ -35,21 +34,19 @@ const app = {
     handleSubmit: function(ev) { // ev stands for event
         ev.preventDefault()
         const f = ev.target
-        const flick = {
+        const flick = { // IDs in the DOM
             id: this.max + 1,
             name: f.flickName.value,
+            // ADD: favorite: boolean
         }
-        const listItem = this.renderListItem(flick)
 
-        // Appends each entered flick to array
-        this.flicks.push(flick)
+        // Add each entered flick to array
+        this.flicks.unshift(flick)
         console.log(this.flicks) // Print out array
 
-        // Add flick label to page (?)
-        let i = 0;
-        for(i; i < this.flicks.length; i++) {
-            this.list.appendChild(listItem)
-        }
+        const listItem = this.renderListItem(flick)
+        // Add flick label to top of list on page
+        this.list.insertBefore(listItem, this.list.firstElementChild) // Add flick to top of page list
 
         // Remove button
         let removeButton = document.createElement("rem")
