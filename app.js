@@ -1,7 +1,7 @@
 // Object with function inside that is called as soon as page loads
 const app = {
     init(selectors) {
-        this.flicks = [] // New flick name and ID added to array
+        this.flicks = []
         this.max = 0
         this.list = document.querySelector(selectors.listSelector)
         this.template = document.querySelector(selectors.templateSelector)
@@ -10,7 +10,7 @@ const app = {
             .addEventListener('submit', this.handleSubmit.bind(this)) 
             // Bind returns a new copy of function set correctly
             // 'This' will be whatever 'this' is now
-    }, // Don't forget comma
+    },
 
     favFlick(flick, ev) {
         const listItem = ev.target.closest('.flick')
@@ -41,21 +41,12 @@ const app = {
         item
             .querySelector('button.fav')
             .addEventListener('click',this.favFlick.bind(this, flick))
-/*
-        // Favorite button
-        let favButton = document.createElement("fav")
-        //fav.textContent = flick.name
-        let text = document.createTextNode("Favorite")
-        favButton.appendChild(text)
-        document.body.appendChild(favButton)
-        favButton.onclick = function() {
-            favorite(item)
-        }  */
+
         return item
     },
 
-    // This is a function but still is a property, appends flick to array
-    handleSubmit: function(ev) { // ev stands for event
+    // Adds flick to array
+    handleSubmit: function(ev) {
         ev.preventDefault()
         const f = ev.target
         const flick = { // IDs in the DOM
@@ -64,13 +55,11 @@ const app = {
             fav: false,
         }
 
-        // Add each entered flick to array
-        this.flicks.unshift(flick)
-        console.log(this.flicks) // Print out array
+        this.flicks.unshift(flick) // Add each entered flick to array
 
         const listItem = this.renderListItem(flick)
-        // Add flick label to top of list on page
         this.list.insertBefore(listItem, this.list.firstElementChild) // Add flick to top of page list
+        // Up and down arrows
 
         this.max++
         f.reset(); // Clears entry field after submitted

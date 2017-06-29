@@ -10,9 +10,9 @@ html {
 } */
 
 body {
-    /* background: transparent; */
-    background-color: darkred;
+    background-color: orangered;
     font-family: 'Roboto',sans-serif;
+    background: linear-gradient( orangered, teal) fixed;
 }
 
 h1 {
@@ -24,11 +24,12 @@ h1 {
 h1 small {
     font-family: 'Bungee', sans-serif;
     text-decoration: underline;
+    color: white;
+    opacity: 0.75;
 }
 
 .list-container {
-  /*background-color: whitesmoke;*/
-  opacity: 0.5;
+    background-color: whitesmoke;
 }
 
 #flick-list {
