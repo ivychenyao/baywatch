@@ -17,9 +17,14 @@ const app = {
     renderListItem(flick) {
         const item = document.createElement('li')
         item.textContent = flick.name
-        // let favButton = document.createElement("BUTTON")
-        // favButton.TEXT_NODE = "Favorite"
-        // document.body.appendChild(favButton)
+
+        // Favorite button
+        let favButton = document.createElement("fav")
+        let text = document.createTextNode("Favorite")
+        favButton.appendChild(text)
+        document.body.appendChild(favButton)
+        favButton.onclick = function() {favorite(item)}
+
         return item
     },
 
@@ -32,27 +37,16 @@ const app = {
             name: f.flickName.value,
         }
         const listItem = this.renderListItem(flick)
-        //this.list.appendChild(listItem)
-        
-        
-        // Favorite button
-        let favButton = document.createElement("fav")
-        let text = document.createTextNode("Favorite")
-        favButton.appendChild(text)
-        document.body.appendChild(favButton)
-        favButton.onclick = function() {favorite(listItem)}
 
         // Remove button
         let removeButton = document.createElement("rem")
         let text2 = document.createTextNode("Remove")
         removeButton.appendChild(text2)
-        document.body.appendChild(removeButton)
-        
+        document.body.appendChild(removeButton)        
 
         // Appends each entered flick to array
         this.flicks.push(flick)
         console.log(this.flicks)
-
 
         for(let i = 0; i < this.flicks.length; i++) {
             this.list.appendChild(listItem)
@@ -66,13 +60,20 @@ const app = {
 }
 
 function favorite(itemName) {
-    itemName.style.backgroundColor = "palevioletred"
+    let favClicked = false
+    console.log(favClicked)
+    if(favClicked == true) {
+        itemName.style.backgroundColor = "darkred"
+        favClicked = false
+    }
+    else {
+        itemName.style.backgroundColor = "palevioletred"
+        favClicked = true
+    }
 }
 
 // Run as soon as page loads
 app.init({
     formSelector:'form#flick-form',
     listSelector: '#flick-list',
-    //favSelector: '#fav',
-    
 }) 
