@@ -1,8 +1,7 @@
 // Object with function inside that is called as soon as page loads
 const app = {
     init(selectors) {
-        this.flicks = [] /* HERE FOR HW. When you add a new one when form is submitted, 
-        you add flick to this array. Not just name. ID and all. One-liner */
+        this.flicks = [] // New flick name and ID added to array
         this.max = 0
         this.list = document.querySelector(selectors.listSelector)
         this.favButton = document.querySelector(selectors.favSelector)
@@ -59,16 +58,13 @@ const app = {
     },
 }
 
+// Favorite or un-favorite a flick
 function favorite(itemName) {
-    let favClicked = false
-    console.log(favClicked)
-    if(favClicked == true) {
+    if(itemName.style.backgroundColor == "palevioletred") {
         itemName.style.backgroundColor = "darkred"
-        favClicked = false
     }
     else {
         itemName.style.backgroundColor = "palevioletred"
-        favClicked = true
     }
 }
 
