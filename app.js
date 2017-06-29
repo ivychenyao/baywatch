@@ -12,6 +12,11 @@ const app = {
             // 'This' will be whatever 'this' is now
     }, // Don't forget comma
 
+    favFlick(flick, ev) {
+        const listItem = ev.target.closest('.flick')
+        flick.fav = listItem.classList.toggle('fav')
+    },
+
     removeFlick(flick, ev) {
         // Remove from DOM
         const listItem = ev.target.closest('.flick')
@@ -33,6 +38,9 @@ const app = {
         item
             .querySelector('button.remove')
             .addEventListener('click',this.removeFlick.bind(this, flick))
+        item
+            .querySelector('button.fav')
+            .addEventListener('click',this.favFlick.bind(this, flick))
 /*
         // Favorite button
         let favButton = document.createElement("fav")
@@ -53,7 +61,7 @@ const app = {
         const flick = { // IDs in the DOM
             id: this.max + 1,
             name: f.flickName.value,
-            // ADD: favorite: boolean
+            fav: false,
         }
 
         // Add each entered flick to array
@@ -63,39 +71,11 @@ const app = {
         const listItem = this.renderListItem(flick)
         // Add flick label to top of list on page
         this.list.insertBefore(listItem, this.list.firstElementChild) // Add flick to top of page list
-/*
-        // Remove button
-        let removeButton = document.createElement("rem")
-        let text2 = document.createTextNode("Remove")
-        removeButton.appendChild(text2)
-        document.body.appendChild(removeButton)
-    */
-    //    this.flicks.splice(0, 1);
-        // removeButton.onclick = function() {
-        //     this.list.renderListItem(listItem)
-        //    // this.flicks.splice(0, 1);
-        // }    
-        // REMOVING
-        // this.flicks.splice(0, 1);
 
         this.max++
         f.reset(); // Clears entry field after submitted
     },
 
-}
-
-// Favorite or un-favorite a flick
-function favorite(itemName) {
-    if(itemName.style.backgroundColor == "palevioletred") {
-        itemName.style.backgroundColor = "darkred"
-    }
-    else {
-        itemName.style.backgroundColor = "palevioletred"
-    }
-}
-
-function remove(itemName) {
-    this.flicks.splice()
 }
 
 // Run as soon as page loads
