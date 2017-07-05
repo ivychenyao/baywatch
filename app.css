@@ -29,11 +29,15 @@ h1 small {
 }
 
 .list-container {
-    background-color: whitesmoke;
+    background-color: rgba(255, 250, 250, 0.5);
 }
 
 #flick-list {
     margin-bottom: 0;
+}
+
+#bkgd {
+    z-index:-1;
 }
 
 .template {

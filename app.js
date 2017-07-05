@@ -1,6 +1,6 @@
 // Object with function inside that is called as soon as page loads
-const app = {
-    init(selectors) {
+class App {
+    constructor(selectors) {
         this.flicks = []
         this.max = 0
         this.list = document.querySelector(selectors.listSelector)
@@ -9,13 +9,25 @@ const app = {
             .querySelector(selectors.formSelector)
             .addEventListener('submit', this.handleSubmit.bind(this)) 
             // Bind returns a new copy of function set correctly
-            // 'This' will be whatever 'this' is now
-    },
+            // 'This' will be whatever 'this' is now   
+        this.load()
+    }
+
+    load() {
+        const flicksJSON = localStorage.getItem('flicks') // Load JSON from localStorage
+        const flicksArray = JSON.parse(flicksJSON) // convert JSON back into array
+
+        if(flicksArray) {
+            flicksArray
+                .reverse()
+                .map(this.addFlick.bind(this))
+        }
+    }
 
     favFlick(flick, ev) {
         const listItem = ev.target.closest('.flick')
         flick.fav = listItem.classList.toggle('fav')
-    },
+    }
 
     removeFlick(flick, ev) {
         // Remove from DOM
@@ -25,7 +37,7 @@ const app = {
         // Remove from array
         const i = this.flicks.indexOf(flick)
         this.flicks.splice(i, 1)
-    },
+    }
 
     // Take flick and make item list out of it
     renderListItem(flick) {
@@ -43,7 +55,7 @@ const app = {
             .addEventListener('click',this.favFlick.bind(this, flick))
 
         return item
-    },
+    }
 
     // Adds flick to array
     handleSubmit: function(ev) {
@@ -63,7 +75,7 @@ const app = {
 
         this.max++
         f.reset(); // Clears entry field after submitted
-    },
+    }
 
 }
 
