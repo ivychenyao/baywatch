@@ -1,56 +1,63 @@
 <!DOCTYPE html>
 <html class="no-js">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Michael Baywatch</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/css/foundation.min.css">
-        <link rel="stylesheet" href="app.css">
-    </head>
-    <body>
-        <div class="grid-x">
-            <div class="medium-8 medium-offset-2 cell">
-                <h1>{ <small>Michael</small> } Baywatch</h1>
-                <div id="bkgd">
-                        <img src="/Users/ivychenyao/Downloads/BayRun.png" alt="">
-                </div>
-                <form id="flick-form">
-                    <div class="input-group">
-                        <input 
-                        type="text" 
-                        class="input-group-field"
-                        name="flickName"
-                        placeholder="Name a flick"
-                        autofocus
-                        required
-                        >
-                        <div class="input-group-button">
-                            <button 
-                            class="success button" 
-                            style="background-color:grey" 
-                            type="submit"
-                            >
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Michael Baywatch</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/css/foundation.min.css">
+    <link rel="stylesheet" href="app.css">
+</head>
+
+<body>
+    <div class="grid-x">
+        <div class="medium-8 medium-offset-2 cell">
+            <h1>{ <small>Michael</small> } Baywatch</h1>
+            <div id="bkgd">
+                <img src="/Users/ivychenyao/Downloads/BayRun.png" alt="">
+            </div>
+            <form id="flick-form">
+                <div class="input-group">
+                    <input type="text" class="input-group-field" name="flickName" placeholder="Name a flick" autofocus required>
+                    <div class="input-group-button">
+                        <button class="success button" style="background-color:grey" type="submit">
                                 Add flick
                             </button>
-                        </div>
                     </div>
-                </form>
-            </div>
-
-            <div class="medium-8 medium-offset-2 cell list-container">
-                <ul id="flick-list" class="no-bullet">
-                    <li class="template flick grid-x align-middle">
-                        <span class="flick-name auto cell"></span>
-                        <span class="actions button-group shrink cell">
-                            <button class="fav button warning">fav</button>
-                            <button class="remove button alert">del</button>
-                        </span>
-                    </li>
-                </ul>
-            </div>
+                </div>
+            </form>
         </div>
-        <script src="app.js"></script>
-    </body>
+
+        <div class="medium-8 medium-offset-2 cell list-container">
+            <ul id="flick-list" class="no-bullet">
+                <li class="template flick grid-x align-middle">
+                    <span class="flick-name auto cell"></span>
+                    <span class="actions button-group shrink cell">
+              <button class="edit button">
+                <i class="fa fa-pencil">Edit</i>
+              </button>
+              <button class="fav button warning">
+                <i class="fa fa-star">Favorite</i>
+              </button>
+              <button class="move-up button">
+                <i class="fa fa-arrow-up">Move Up</i>
+              </button>
+              <button class="move-down button">
+                <i class="fa fa-arrow-down">Move Down</i>
+              </button>
+              <button class="remove button alert">
+                <i class="fa fa-trash-o">Remove</i>
+              </button>
+            </span>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
 </html>
