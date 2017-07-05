@@ -70,11 +70,22 @@ class App {
 
     moveUp(flick) {
         const listItem = this.list.querySelector(`[data-id="${flick.id}"]`)
+        const i = this.flicks.indexOf(flick)
+
+        if(i > 0) {
+            this.list.insertBefore(listItem,listItem.previousElementSibling)
+            const previousFlick = this.flicks[i - 1]
+            this.flicks[i - 1] = flick
+            this.flicks[i] = previousFlick
+
+            this.save()
+        }
     }
 
     favFlick(flick, ev) {
         const listItem = ev.target.closest('.flick')
         flick.fav = listItem.classList.toggle('fav')
+        this.save()
     }
 
     removeFlick(flick, ev) {
@@ -85,6 +96,8 @@ class App {
         // Remove from array
         const i = this.flicks.indexOf(flick)
         this.flicks.splice(i, 1)
+
+        this.save()
     }
 
     // Take flick and make item list out of it
