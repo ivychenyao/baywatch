@@ -7,9 +7,9 @@ class App {
         this.template = document.querySelector(selectors.templateSelector)
         document
             .querySelector(selectors.formSelector)
-            .addEventListener('submit', this.handleSubmit.bind(this)) 
-            // Bind returns a new copy of function set correctly
-            // 'This' will be whatever 'this' is now   
+            .addEventListener('submit', this.handleSubmit.bind(this))
+        // Bind returns a new copy of function set correctly
+        // 'This' will be whatever 'this' is now   
         this.load()
     }
 
@@ -17,7 +17,7 @@ class App {
         const flicksJSON = localStorage.getItem('flicks') // Load JSON from localStorage
         const flicksArray = JSON.parse(flicksJSON) // convert JSON back into array
 
-        if(flicksArray) {
+        if (flicksArray) {
             flicksArray
                 .reverse()
                 .map(this.addFlick.bind(this))
@@ -25,11 +25,11 @@ class App {
     }
 
     save() {
-        localStorage.setItem('flicks',JSON.stringify(this.flicks))
+        localStorage.setItem('flicks', JSON.stringify(this.flicks))
     }
 
     saveOnEnter(flick, listItem, ev) {
-        if(ev.key === 'Enter') {
+        if (ev.key === 'Enter') {
             this.toggleEditable(flick, listItem)
         }
     }
@@ -40,7 +40,7 @@ class App {
         const icon = btn.querySelector('i.fa')
 
         // Make no longer editable
-        if(nameField.isContentEditable) {
+        if (nameField.isContentEditable) {
             nameField.contentEditable = false
             icon.classList.remove('fa-check')
             icon.classList.add('fa-pencil')
@@ -63,7 +63,7 @@ class App {
 
     moveDown(flick) {
         const i = this.flicks.indexOf(flick)
-        if(i < this.flicks.length - 1) {
+        if (i < this.flicks.length - 1) {
             this.moveUp(this.flicks[i + 1])
         }
     }
@@ -72,8 +72,8 @@ class App {
         const listItem = this.list.querySelector(`[data-id="${flick.id}"]`)
         const i = this.flicks.indexOf(flick)
 
-        if(i > 0) {
-            this.list.insertBefore(listItem,listItem.previousElementSibling)
+        if (i > 0) {
+            this.list.insertBefore(listItem, listItem.previousElementSibling)
             const previousFlick = this.flicks[i - 1]
             this.flicks[i - 1] = flick
             this.flicks[i] = previousFlick
@@ -92,7 +92,7 @@ class App {
         // Remove from DOM
         const listItem = ev.target.closest('.flick')
         listItem.remove()
-       
+
         // Remove from array
         const i = this.flicks.indexOf(flick)
         this.flicks.splice(i, 1)
@@ -105,44 +105,85 @@ class App {
         const item = this.template.cloneNode(true)
         item.classList.remove('template')
         item.dataset.id = flick.id
-        item
-            .querySelector('.flick-name')
-            .textContent = flick.name
+
+        if (flick.fav) {
+            item.classList.add('fav')
+        }
+
+        const nameSpan = item.querySelector('.flick-name')
+        nameSpan.textContent = flick.name
+        nameSpan.addEventListener(
+            'keypress',
+            this.saveOnEnter.bind(this, flick, item)
+        )
+
         item
             .querySelector('button.remove')
-            .addEventListener('click',this.removeFlick.bind(this, flick))
+            .addEventListener(
+            'click',
+            this.removeFlick.bind(this, flick)
+            )
+
         item
             .querySelector('button.fav')
-            .addEventListener('click',this.favFlick.bind(this, flick))
+            .addEventListener(
+            'click',
+            this.favFlick.bind(this, flick)
+            )
+
+        item
+            .querySelector('button.move-up')
+            .addEventListener(
+            'click',
+            this.moveUp.bind(this, flick)
+            )
+
+        item
+            .querySelector('button.move-down')
+            .addEventListener(
+            'click',
+            this.moveDown.bind(this, flick)
+            )
+
+        item
+            .querySelector('button.edit')
+            .addEventListener(
+            'click',
+            this.toggleEditable.bind(this, flick, item)
+            )
 
         return item
     }
 
-    // Adds flick to array
-    handleSubmit: function(ev) {
+    addFlick(flick) {
+        this.flicks.unshift(flick)
+
+        const listItem = this.renderListItem(flick)
+        this.list.insertBefore(listItem, this.list.firstElementChild)
+
+        if (flick.id > this.max) {
+            this.max = flick.id
+        }
+        this.save()
+    }
+
+    handleSubmit(ev) {
         ev.preventDefault()
         const f = ev.target
-        const flick = { // IDs in the DOM
+        const flick = {
             id: this.max + 1,
             name: f.flickName.value,
             fav: false,
         }
 
-        this.flicks.unshift(flick) // Add each entered flick to array
+        this.addFlick(flick)
 
-        const listItem = this.renderListItem(flick)
-        this.list.insertBefore(listItem, this.list.firstElementChild) // Add flick to top of page list
-        // Up and down arrows
-
-        this.max++
-        f.reset(); // Clears entry field after submitted
+        f.reset()
     }
-
 }
 
-// Run as soon as page loads
-app.init({
-    formSelector:'form#flick-form',
+const app = new App({
+    formSelector: 'form#flick-form',
     listSelector: '#flick-list',
-    templateSelector: '.flick.template', // CSS selector for something with multiple classes
-}) 
+    templateSelector: '.flick.template'
+})
