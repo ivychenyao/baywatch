@@ -24,6 +24,54 @@ class App {
         }
     }
 
+    save() {
+        localStorage.setItem('flicks',JSON.stringify(this.flicks))
+    }
+
+    saveOnEnter(flick, listItem, ev) {
+        if(ev.key === 'Enter') {
+            this.toggleEditable(flick, listItem)
+        }
+    }
+
+    toggleEditable(flick, listItem, ev) {
+        const nameField = listItem.querySelector('.flick-name')
+        const btn = listItem.querySelector('button.edit')
+        const icon = btn.querySelector('i.fa')
+
+        // Make no longer editable
+        if(nameField.isContentEditable) {
+            nameField.contentEditable = false
+            icon.classList.remove('fa-check')
+            icon.classList.add('fa-pencil')
+            icon.classList.remove('success')
+
+            // Save changes
+            flick.name = nameField.textContent
+            this.save()
+        }
+
+        // Make editable
+        else {
+            nameField.contentEditable = true
+            nameField.focus()
+            icon.classList.remove('fa-pencil')
+            icon.classList.add('fa-check')
+            btn.classList.add('success')
+        }
+    }
+
+    moveDown(flick) {
+        const i = this.flicks.indexOf(flick)
+        if(i < this.flicks.length - 1) {
+            this.moveUp(this.flicks[i + 1])
+        }
+    }
+
+    moveUp(flick) {
+        const listItem = this.list.querySelector(`[data-id="${flick.id}"]`)
+    }
+
     favFlick(flick, ev) {
         const listItem = ev.target.closest('.flick')
         flick.fav = listItem.classList.toggle('fav')
